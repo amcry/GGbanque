@@ -10,12 +10,9 @@ public class GGBanque {
   private Scanner scanner;
   private boolean fin = false;
 
-  public static void main(String[] args) {
-    GGBanque laBanque = new GGBanque();
-    laBanque.run();
-  }
+  
 
-  private void run() {
+  void run() {
     scanner = new Scanner(System.in);
     while (!fin) {
       System.out.print(
