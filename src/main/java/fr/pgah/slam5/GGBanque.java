@@ -25,27 +25,29 @@ public class GGBanque {
     }
     scanner.close();
   }
-
-  private void traiterCommande(int cmd) {
-    if (cmd == 0) {
-      fin = true;
+  public void quitter(){
+    fin = true;
       System.out.println("À bientôt.");
-    } else if (cmd == 1) {
-      numCompteSelectionne = numDernierCompte++;
+  }
+  public void creerNouveauCompte(){
+    numCompteSelectionne = numDernierCompte++;
       comptes.put(numCompteSelectionne, 0);
       System.out.println("Le numéro de votre nouveau compte est : " + numCompteSelectionne);
-    } else if (cmd == 2) {
-      System.out.print("Entrez le numéro du compte : ");
+  }
+  public void selectionnerCompte(){
+    System.out.print("Entrez le numéro du compte : ");
       numCompteSelectionne = scanner.nextInt();
       int solde = comptes.get(numCompteSelectionne);
       System.out.println("Le solde du compte " + numCompteSelectionne + " est " + solde);
-    } else if (cmd == 3) {
-      System.out.print("Entrez le montant : ");
+  }
+  public void crediterCompte(){
+    System.out.print("Entrez le montant : ");
       int montant = scanner.nextInt();
       int solde = comptes.get(numCompteSelectionne);
       comptes.put(numCompteSelectionne, solde + montant);
-    } else if (cmd == 4) {
-      System.out.print("Entrez le montant de l'emprunt souhaité : ");
+  }
+  public void demanderEmprunt(){
+    System.out.print("Entrez le montant de l'emprunt souhaité : ");
       int montant = scanner.nextInt();
       int solde = comptes.get(numCompteSelectionne);
       if (solde >= montant / 2) {
@@ -53,19 +55,44 @@ public class GGBanque {
       } else {
         System.out.println("Votre demande est refusée.");
       }
-    } else if (cmd == 5) {
-      Set<Integer> numerosDesComptes = comptes.keySet();
+  }
+  public void afficherInfosCompte(){
+    Set<Integer> numerosDesComptes = comptes.keySet();
       System.out.println("La banque gère " + numerosDesComptes.size() + " comptes.");
       for (int num : numerosDesComptes) {
         System.out.println("\tCompte " + num + ": solde = " + comptes.get(num));
       }
-    } else if (cmd == 6) {
-      Set<Integer> numerosDesComptes = comptes.keySet();
+  }
+  public void appliquerInterets(){
+    Set<Integer> numerosDesComptes = comptes.keySet();
       for (int num : numerosDesComptes) {
         int solde = comptes.get(num);
         int nouveauSolde = (int) (solde * (1 + taux));
         comptes.put(num, nouveauSolde);
       }
+  }
+
+  private void traiterCommande(int cmd) {
+    if (cmd == 0) {
+      quitter();
+    } else if (cmd == 1) {
+      creerNouveauCompte();
+      
+    } else if (cmd == 2) {
+      selectionnerCompte();
+      
+    } else if (cmd == 3) {
+      crediterCompte();
+      
+    } else if (cmd == 4) {
+      demanderEmprunt();
+      
+    } else if (cmd == 5) {
+      afficherInfosCompte();
+      
+    } else if (cmd == 6) {
+      appliquerInterets();
+      
     }
   }
 }
